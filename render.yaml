@@ -9,15 +9,20 @@ databases:
   plan: standard
 
 services:
-- type: pserv
+- type: web
   name: temporal
   autoDeploy: false
   plan: Standard
   env: docker
   dockerfilePath: ./server/Dockerfile
   envVars:
-  - key: PORT
-    value: 7233
+  - key: FRONTEND_GRPC_PORT
+    value: 10000
+  - key: TEMPORAL_CLI_ADDRESS
+    fromService:
+      name: temporal
+      type: web
+      property: hostport
   - key: DYNAMIC_CONFIG_FILE_PATH
     value: /etc/temporal/dynamicconfig.yaml
   - key: SKIP_POSTGRES_DB_CREATION
@@ -74,7 +79,7 @@ services:
   - key: TEMPORAL_CLI_ADDRESS
     fromService:
       name: temporal
-      type: pserv
+      type: web
       property: hostport
 - type: web
   name: temporal-web
@@ -90,5 +95,5 @@ services:
   - key: TEMPORAL_GRPC_ENDPOINT
     fromService:
       name: temporal
-      type: pserv
+      type: web
       property: hostport
