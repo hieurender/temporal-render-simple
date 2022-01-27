@@ -16,7 +16,7 @@ services:
   env: docker
   dockerfilePath: ./server/Dockerfile
   envVars:
-  - key: FRONTEND_GRPC_PORT
+  - key: FRONTEND_GRPC_PORT # TODO necessary?
     value: 10000
   - key: SERVICES
     value: frontend
@@ -82,12 +82,17 @@ services:
   env: docker
   dockerfilePath: ./server/Dockerfile
   envVars:
-  - key: FRONTEND_GRPC_PORT
-    value: 10000
   - key: SKIP_SCHEMA_SETUP
     value: true
   - key: SERVICES
     value: history
+  - key: TEMPORAL_CLI_ADDRESS
+    fromService:
+      name: temporal-frontend
+      type: web
+      property: hostport
+  - key: DB
+    value: postgresql
   - key: DBNAME
     fromDatabase:
       name: temporal
@@ -97,7 +102,7 @@ services:
       name: temporal
       property: database
   - key: DYNAMIC_CONFIG_FILE_PATH
-    value: /etc/temporal/dynamicconfig/development.yaml
+    value: /etc/temporal/dynamicconfig.yaml
   - key: POSTGRES_USER
     fromDatabase:
       name: temporal
@@ -123,6 +128,13 @@ services:
       value: true
     - key: SERVICES
       value: history
+    - key: TEMPORAL_CLI_ADDRESS
+      fromService:
+        name: temporal-frontend
+        type: web
+        property: hostport
+    - key: DB
+      value: postgresql
     - key: DBNAME
       fromDatabase:
         name: temporal
@@ -132,7 +144,7 @@ services:
         name: temporal
         property: database
     - key: DYNAMIC_CONFIG_FILE_PATH
-      value: /etc/temporal/dynamicconfig/development.yaml
+      value: /etc/temporal/dynamicconfig.yaml
     - key: POSTGRES_USER
       fromDatabase:
         name: temporal
@@ -154,9 +166,16 @@ services:
     - key: STATSD_ENDPOINT
       value: temporal-datadog-agent:8125
     - key: PUBLIC_FRONTEND_ADDRESS
-      value: temporal-frontend:7233
+      value: temporal-frontend:10000
     - key: SERVICES
       value: worker
+    - key: TEMPORAL_CLI_ADDRESS
+      fromService:
+        name: temporal-frontend
+        type: web
+        property: hostport
+    - key: DB
+      value: postgresql
     - key: DBNAME
       fromDatabase:
         name: temporal
@@ -166,7 +185,7 @@ services:
         name: temporal
         property: database
     - key: DYNAMIC_CONFIG_FILE_PATH
-      value: /etc/temporal/dynamicconfig/development.yaml
+      value: /etc/temporal/dynamicconfig.yaml
     - key: POSTGRES_USER
       fromDatabase:
         name: temporal
