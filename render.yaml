@@ -14,7 +14,7 @@ services:
   autoDeploy: false
   plan: Standard
   env: docker
-  dockerfilePath: ./server/Dockerfile
+  dockerfilePath: ./server-auto-setup/Dockerfile
   envVars:
   - key: FRONTEND_GRPC_PORT # TODO necessary?
     value: 10000
