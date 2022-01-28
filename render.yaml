@@ -20,10 +20,6 @@ services:
     value: 10000
   - key: SERVICES
     value: frontend
-  - key: BIND_ON_IP # TODO necessary?
-    value: 0.0.0.0
-  - key: TEMPORAL_BROADCAST_ADDRESS # TODO necessary?
-    value: 0.0.0.0
   - key: TEMPORAL_CLI_ADDRESS
     fromService:
       name: temporal-frontend
@@ -122,8 +118,6 @@ services:
   env: docker
   dockerfilePath: ./server/Dockerfile
   envVars:
-    - key: FRONTEND_GRPC_PORT
-      value: 10000
     - key: SKIP_SCHEMA_SETUP
       value: true
     - key: SERVICES
@@ -163,10 +157,6 @@ services:
   env: docker
   dockerfilePath: ./server/Dockerfile
   envVars:
-    - key: STATSD_ENDPOINT
-      value: temporal-datadog-agent:8125
-    - key: PUBLIC_FRONTEND_ADDRESS
-      value: temporal-frontend:10000
     - key: SERVICES
       value: worker
     - key: TEMPORAL_CLI_ADDRESS
@@ -223,6 +213,6 @@ services:
     value: true
   - key: TEMPORAL_GRPC_ENDPOINT
     fromService:
-      name: temporal
+      name: temporal-frontend
       type: web
       property: hostport
