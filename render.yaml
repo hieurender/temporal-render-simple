@@ -15,127 +15,137 @@ services:
   plan: Standard
   env: docker
   dockerfilePath: ./server-auto-setup/Dockerfile
+  scaling:
+    minInstances: 2
+    maxInstances: 3
+    targetMemoryPercent: 80
+    targetCPUPercent: 80
   envVars:
-  - key: FRONTEND_GRPC_PORT
-    value: 10000
-  - key: SERVICES
-    value: frontend
-  - key: TEMPORAL_CLI_ADDRESS_RENDER_OVERRIDE
-    fromService:
-      name: temporal-frontend
-      type: web
-      property: hostport
-  - key: DYNAMIC_CONFIG_FILE_PATH
-    value: /etc/temporal/dynamicconfig.yaml
-  - key: SKIP_POSTGRES_DB_CREATION
-    value: true # Render creates the database when the DB is created
-  - key: DB
-    value: postgresql
-  - key: DBNAME
-    fromDatabase:
-      name: temporal
-      property: database
-  - key: DB_PORT
-    fromDatabase:
-      name: temporal
-      property: port
-  - key: POSTGRES_USER
-    fromDatabase:
-      name: temporal
-      property: user
-  - key: POSTGRES_PWD
-    fromDatabase:
-      name: temporal
-      property: password
-  - key: POSTGRES_SEEDS
-    fromDatabase:
-      name: temporal
-      property: host
-  - key: VISIBILITY_DBNAME
-    fromDatabase:
-      name: temporal-visibility
-      property: database
-  - key: VISIBILITY_DB_PORT
-    fromDatabase:
-      name: temporal-visibility
-      property: port
-  - key: VISIBILITY_POSTGRES_USER
-    fromDatabase:
-      name: temporal-visibility
-      property: user
-  - key: VISIBILITY_POSTGRES_PWD
-    fromDatabase:
-      name: temporal-visibility
-      property: password
-  - key: VISIBILITY_POSTGRES_SEEDS
-    fromDatabase:
-      name: temporal-visibility
-      property: host
+    - key: FRONTEND_GRPC_PORT
+      value: 10000
+    - key: SERVICES
+      value: frontend
+    - key: TEMPORAL_CLI_ADDRESS_RENDER_OVERRIDE
+      fromService:
+        name: temporal-frontend
+        type: web
+        property: hostport
+    - key: DYNAMIC_CONFIG_FILE_PATH
+      value: /etc/temporal/dynamicconfig.yaml
+    - key: SKIP_POSTGRES_DB_CREATION
+      value: true # Render creates the database when the DB is created
+    - key: DB
+      value: postgresql
+    - key: DBNAME
+      fromDatabase:
+        name: temporal
+        property: database
+    - key: DB_PORT
+      fromDatabase:
+        name: temporal
+        property: port
+    - key: POSTGRES_USER
+      fromDatabase:
+        name: temporal
+        property: user
+    - key: POSTGRES_PWD
+      fromDatabase:
+        name: temporal
+        property: password
+    - key: POSTGRES_SEEDS
+      fromDatabase:
+        name: temporal
+        property: host
+    - key: VISIBILITY_DBNAME
+      fromDatabase:
+        name: temporal-visibility
+        property: database
+    - key: VISIBILITY_DB_PORT
+      fromDatabase:
+        name: temporal-visibility
+        property: port
+    - key: VISIBILITY_POSTGRES_USER
+      fromDatabase:
+        name: temporal-visibility
+        property: user
+    - key: VISIBILITY_POSTGRES_PWD
+      fromDatabase:
+        name: temporal-visibility
+        property: password
+    - key: VISIBILITY_POSTGRES_SEEDS
+      fromDatabase:
+        name: temporal-visibility
+        property: host
 - type: pserv
   name: temporal-history
   autoDeploy: false
   plan: Standard
   env: docker
   dockerfilePath: ./server/Dockerfile
+  scaling:
+    minInstances: 2
+    maxInstances: 3
+    targetMemoryPercent: 80
+    targetCPUPercent: 80
   envVars:
-  - key: SERVICES
-    value: history
-  - key: PUBLIC_FRONTEND_ADDRESS
-    fromService:
-      name: temporal-frontend
-      type: web
-      property: hostport
-  - key: TEMPORAL_CLI_ADDRESS
-    fromService:
-      name: temporal-frontend
-      type: web
-      property: hostport
-  - key: DB
-    value: postgresql
-  - key: DBNAME
-    fromDatabase:
-      name: temporal
-      property: database
-  - key: VISIBILITY_DBNAME
-    fromDatabase:
-      name: temporal-visibility
-      property: database
-  - key: VISIBILITY_DB_PORT
-    fromDatabase:
-      name: temporal-visibility
-      property: port
-  - key: VISIBILITY_POSTGRES_USER
-    fromDatabase:
-      name: temporal-visibility
-      property: user
-  - key: VISIBILITY_POSTGRES_PWD
-    fromDatabase:
-      name: temporal-visibility
-      property: password
-  - key: VISIBILITY_POSTGRES_SEEDS
-    fromDatabase:
-      name: temporal-visibility
-      property: host
-  - key: DYNAMIC_CONFIG_FILE_PATH
-    value: /etc/temporal/dynamicconfig.yaml
-  - key: POSTGRES_USER
-    fromDatabase:
-      name: temporal
-      property: user
-  - key: POSTGRES_PWD
-    fromDatabase:
-      name: temporal
-      property: password
-  - key: POSTGRES_SEEDS
-    fromDatabase:
-      name: temporal
-      property: host
+    - key: SERVICES
+      value: history
+    - key: PUBLIC_FRONTEND_ADDRESS
+      fromService:
+        name: temporal-frontend
+        type: web
+        property: hostport
+    - key: DYNAMIC_CONFIG_FILE_PATH
+      value: /etc/temporal/dynamicconfig.yaml
+    - key: DB
+      value: postgresql
+    - key: DBNAME
+      fromDatabase:
+        name: temporal
+        property: database
+    - key: POSTGRES_USER
+      fromDatabase:
+        name: temporal
+        property: user
+    - key: POSTGRES_PWD
+      fromDatabase:
+        name: temporal
+        property: password
+    - key: POSTGRES_SEEDS
+      fromDatabase:
+        name: temporal
+        property: host
+    - key: VISIBILITY_DBNAME
+      fromDatabase:
+        name: temporal-visibility
+        property: database
+    - key: VISIBILITY_DB_PORT
+      fromDatabase:
+        name: temporal-visibility
+        property: port
+    - key: VISIBILITY_POSTGRES_USER
+      fromDatabase:
+        name: temporal-visibility
+        property: user
+    - key: VISIBILITY_POSTGRES_PWD
+      fromDatabase:
+        name: temporal-visibility
+        property: password
+    - key: VISIBILITY_POSTGRES_SEEDS
+      fromDatabase:
+        name: temporal-visibility
+        property: host
 - type: pserv
   name: temporal-matching
   autoDeploy: false
   plan: Standard
   env: docker
   dockerfilePath: ./server/Dockerfile
+  scaling:
+    minInstances: 2
+    maxInstances: 3
+    targetMemoryPercent: 80
+    targetCPUPercent: 80
   envVars:
     - key: SERVICES
       value: matching
@@ -144,17 +154,26 @@ services:
         name: temporal-frontend
         type: web
         property: hostport
-    - key: TEMPORAL_CLI_ADDRESS
-      fromService:
-        name: temporal-frontend
-        type: web
-        property: hostport
+    - key: DYNAMIC_CONFIG_FILE_PATH
+      value: /etc/temporal/dynamicconfig.yaml
     - key: DB
       value: postgresql
     - key: DBNAME
       fromDatabase:
         name: temporal
         property: database
+    - key: POSTGRES_USER
+      fromDatabase:
+        name: temporal
+        property: user
+    - key: POSTGRES_PWD
+      fromDatabase:
+        name: temporal
+        property: password
+    - key: POSTGRES_SEEDS
+      fromDatabase:
+        name: temporal
+        property: host
     - key: VISIBILITY_DBNAME
       fromDatabase:
         name: temporal-visibility
@@ -175,25 +194,16 @@ services:
       fromDatabase:
         name: temporal-visibility
         property: host
-    - key: DYNAMIC_CONFIG_FILE_PATH
-      value: /etc/temporal/dynamicconfig.yaml
-    - key: POSTGRES_USER
-      fromDatabase:
-        name: temporal
-        property: user
-    - key: POSTGRES_PWD
-      fromDatabase:
-        name: temporal
-        property: password
-    - key: POSTGRES_SEEDS
-      fromDatabase:
-        name: temporal
-        property: host
 - type: pserv
   autoDeploy: false
   name: temporal-worker
   env: docker
   dockerfilePath: ./server/Dockerfile
+  scaling:
+    minInstances: 2
+    maxInstances: 3
+    targetMemoryPercent: 80
+    targetCPUPercent: 80
   envVars:
     - key: SERVICES
       value: worker
@@ -202,17 +212,26 @@ services:
         name: temporal-frontend
         type: web
         property: hostport
-    - key: TEMPORAL_CLI_ADDRESS
-      fromService:
-        name: temporal-frontend
-        type: web
-        property: hostport
+    - key: DYNAMIC_CONFIG_FILE_PATH
+      value: /etc/temporal/dynamicconfig.yaml
     - key: DB
       value: postgresql
     - key: DBNAME
       fromDatabase:
         name: temporal
         property: database
+    - key: POSTGRES_USER
+      fromDatabase:
+        name: temporal
+        property: user
+    - key: POSTGRES_PWD
+      fromDatabase:
+        name: temporal
+        property: password
+    - key: POSTGRES_SEEDS
+      fromDatabase:
+        name: temporal
+        property: host
     - key: VISIBILITY_DBNAME
       fromDatabase:
         name: temporal-visibility
@@ -232,20 +251,6 @@ services:
     - key: VISIBILITY_POSTGRES_SEEDS
       fromDatabase:
         name: temporal-visibility
-        property: host
-    - key: DYNAMIC_CONFIG_FILE_PATH
-      value: /etc/temporal/dynamicconfig.yaml
-    - key: POSTGRES_USER
-      fromDatabase:
-        name: temporal
-        property: user
-    - key: POSTGRES_PWD
-      fromDatabase:
-        name: temporal
-        property: password
-    - key: POSTGRES_SEEDS
-      fromDatabase:
-        name: temporal
         property: host
 - type: worker
   name: temporal-admin-tools
