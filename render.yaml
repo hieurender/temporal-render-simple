@@ -20,7 +20,7 @@ services:
     value: 10000
   - key: SERVICES
     value: frontend
-  - key: TEMPORAL_CLI_ADDRESS
+  - key: TEMPORAL_CLI_ADDRESS_RENDER_OVERRIDE
     fromService:
       name: temporal-frontend
       type: web
@@ -121,7 +121,7 @@ services:
     - key: SKIP_SCHEMA_SETUP
       value: true
     - key: SERVICES
-      value: history
+      value: matching
     - key: TEMPORAL_CLI_ADDRESS
       fromService:
         name: temporal-frontend
