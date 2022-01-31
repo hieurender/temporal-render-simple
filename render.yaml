@@ -82,6 +82,11 @@ services:
     value: true
   - key: SERVICES
     value: history
+  - key: PUBLIC_FRONTEND_ADDRESS
+    fromService:
+      name: temporal-frontend
+      type: web
+      property: hostport
   - key: TEMPORAL_CLI_ADDRESS
     fromService:
       name: temporal-frontend
@@ -122,6 +127,11 @@ services:
       value: true
     - key: SERVICES
       value: matching
+    - key: PUBLIC_FRONTEND_ADDRESS
+      fromService:
+        name: temporal-frontend
+        type: web
+        property: hostport
     - key: TEMPORAL_CLI_ADDRESS
       fromService:
         name: temporal-frontend
@@ -159,6 +169,11 @@ services:
   envVars:
     - key: SERVICES
       value: worker
+    - key: PUBLIC_FRONTEND_ADDRESS
+      fromService:
+        name: temporal-frontend
+        type: web
+        property: hostport
     - key: TEMPORAL_CLI_ADDRESS
       fromService:
         name: temporal-frontend
