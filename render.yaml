@@ -78,8 +78,6 @@ services:
   env: docker
   dockerfilePath: ./server/Dockerfile
   envVars:
-  - key: SKIP_SCHEMA_SETUP
-    value: true
   - key: SERVICES
     value: history
   - key: PUBLIC_FRONTEND_ADDRESS
@@ -100,7 +98,7 @@ services:
       property: database
   - key: VISIBILITY_DBNAME
     fromDatabase:
-      name: temporal
+      name: temporal-visibility
       property: database
   - key: DYNAMIC_CONFIG_FILE_PATH
     value: /etc/temporal/dynamicconfig.yaml
@@ -123,8 +121,6 @@ services:
   env: docker
   dockerfilePath: ./server/Dockerfile
   envVars:
-    - key: SKIP_SCHEMA_SETUP
-      value: true
     - key: SERVICES
       value: matching
     - key: PUBLIC_FRONTEND_ADDRESS
@@ -145,7 +141,7 @@ services:
         property: database
     - key: VISIBILITY_DBNAME
       fromDatabase:
-        name: temporal
+        name: temporal-visibility
         property: database
     - key: DYNAMIC_CONFIG_FILE_PATH
       value: /etc/temporal/dynamicconfig.yaml
@@ -187,7 +183,7 @@ services:
         property: database
     - key: VISIBILITY_DBNAME
       fromDatabase:
-        name: temporal
+        name: temporal-visibility
         property: database
     - key: DYNAMIC_CONFIG_FILE_PATH
       value: /etc/temporal/dynamicconfig.yaml
