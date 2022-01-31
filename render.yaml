@@ -100,6 +100,22 @@ services:
     fromDatabase:
       name: temporal-visibility
       property: database
+  - key: VISIBILITY_DB_PORT
+    fromDatabase:
+      name: temporal-visibility
+      property: port
+  - key: VISIBILITY_POSTGRES_USER
+    fromDatabase:
+      name: temporal-visibility
+      property: user
+  - key: VISIBILITY_POSTGRES_PWD
+    fromDatabase:
+      name: temporal-visibility
+      property: password
+  - key: VISIBILITY_POSTGRES_SEEDS
+    fromDatabase:
+      name: temporal-visibility
+      property: host
   - key: DYNAMIC_CONFIG_FILE_PATH
     value: /etc/temporal/dynamicconfig.yaml
   - key: POSTGRES_USER
@@ -143,6 +159,22 @@ services:
       fromDatabase:
         name: temporal-visibility
         property: database
+    - key: VISIBILITY_DB_PORT
+      fromDatabase:
+        name: temporal-visibility
+        property: port
+    - key: VISIBILITY_POSTGRES_USER
+      fromDatabase:
+        name: temporal-visibility
+        property: user
+    - key: VISIBILITY_POSTGRES_PWD
+      fromDatabase:
+        name: temporal-visibility
+        property: password
+    - key: VISIBILITY_POSTGRES_SEEDS
+      fromDatabase:
+        name: temporal-visibility
+        property: host
     - key: DYNAMIC_CONFIG_FILE_PATH
       value: /etc/temporal/dynamicconfig.yaml
     - key: POSTGRES_USER
@@ -185,6 +217,22 @@ services:
       fromDatabase:
         name: temporal-visibility
         property: database
+    - key: VISIBILITY_DB_PORT
+      fromDatabase:
+        name: temporal-visibility
+        property: port
+    - key: VISIBILITY_POSTGRES_USER
+      fromDatabase:
+        name: temporal-visibility
+        property: user
+    - key: VISIBILITY_POSTGRES_PWD
+      fromDatabase:
+        name: temporal-visibility
+        property: password
+    - key: VISIBILITY_POSTGRES_SEEDS
+      fromDatabase:
+        name: temporal-visibility
+        property: host
     - key: DYNAMIC_CONFIG_FILE_PATH
       value: /etc/temporal/dynamicconfig.yaml
     - key: POSTGRES_USER
