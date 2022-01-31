@@ -16,7 +16,7 @@ services:
   env: docker
   dockerfilePath: ./server-auto-setup/Dockerfile
   envVars:
-  - key: FRONTEND_GRPC_PORT # TODO necessary?
+  - key: FRONTEND_GRPC_PORT
     value: 10000
   - key: SERVICES
     value: frontend
