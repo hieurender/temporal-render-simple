@@ -15,6 +15,7 @@ services:
     plan: Standard
     env: docker
     dockerfilePath: ./temporal-cluster/server/Dockerfile
+    dockerCommand: /etc/temporal/entrypoint.sh autosetup
     scaling:
       minInstances: 2
       maxInstances: 3
