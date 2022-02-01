@@ -1,5 +1,0 @@
-FROM temporalio/server:1.14.3
-
-# Docker context is set to the root of this repo
-COPY config/dynamicconfig.yaml /etc/temporal/dynamicconfig.yaml
-COPY server/entrypoint.sh /etc/temporal/entrypoint.sh
